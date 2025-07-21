@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+
+
+@keyframes shimmer {
+  0% {
+    background-position: -300% 0;
+  }
+  100% {
+    background-position: 300% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.4; }
+}
+.animate-twinkle {
+  animation: twinkle 9s ease-in-out infinite;
+}
+
+
+
+
+
+
+
+
+
