@@ -57,33 +57,37 @@ const DoctorDashboard = () => {
 
   return (
     <div className="min-h-screen pt-28 px-4 sm:px-8 bg-gradient-to-br from-[#e0f7fa] via-[#f3e5f5] to-[#fce4ec]">
-       <h1 className="text-2xl text-center font-bold text-gray-800 mb-7">
-              Welcome, Dr. {doctorProfile?.name}
+       <h1 className="text-2xl text-center border-b font-bold text-gray-800 mb-7">
+              Welcome Dr {doctorProfile?.name}
             </h1>
-
+    <h2 className="text-xl font-semibold  text-center text-gray-800 mb-4">Assigned Medical Records</h2>
       {loading ? (
         <div className="flex items-center justify-center gap-2">
           <Loader2 className="animate-spin h-6 w-6 text-blue-500" />
           <p className="text-blue-800 font-medium">Loading your dashboard...</p>
         </div>
       ) : doctorProfile ? (
-        <div className="flex flex-col lg:flex-row gap-8">
+        
+        <div className="flex flex-col lg:flex-row lg:items-start gap-8">
           {/* Doctor Info */}
           <div className="bg-white/70 backdrop-blur-md shadow-lg rounded-2xl p-6 w-full lg:w-1/3">
            
+          <img className="w-full h-auto rounded-lg mb-2" src={doctorProfile.avatar} alt={doctorProfile.id} />
             <p className="mb-2">
-              <span className="font-semibold">Specialization:</span> {doctorProfile.specialization}
+              <span className="font-semibold">Specialization</span> {doctorProfile.specialization}
             </p>
             <p>
-              <span className="font-semibold">Biography:</span> {doctorProfile.biography}
+              <span className="font-semibold">Biography</span> {doctorProfile.biography}
             </p>
-          <img src={doctorProfile.avatar} alt={doctorProfile.id} />
+            <p>
+              <span className="font-semibold">Name</span> {doctorProfile.name}
+            </p>
           </div>
 
           {/* Records Section */}
           <div className="w-full lg:w-2/3">
 
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Assigned Medical Records</h2>
+            
             <div className="grid gap-4">
               {records.length > 0 ? (
                 records.map((record) => (

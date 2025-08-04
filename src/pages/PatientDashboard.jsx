@@ -8,7 +8,7 @@ const PatientDashboard = () => {
   const { profile, loading, errorMsg } = useMyPatientProfile();
   const contract = useContractInstance(true);
   const { address } = useAppKitAccount();
-  const deleteMedicalRecord = useDeleteMedicalRecord(); // ✅ Use the hook
+  const deleteMedicalRecord = useDeleteMedicalRecord(); 
 
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [recordLoading, setRecordLoading] = useState(true);
@@ -24,7 +24,7 @@ const PatientDashboard = () => {
       setMedicalRecords(records);
       setRecordError("");
     } catch (err) {
-      console.error("❌ Error fetching medical records:", err);
+      console.error(" Error fetching medical records:", err);
       setRecordError("Failed to fetch medical records.");
       setMedicalRecords([]);
     } finally {
@@ -41,20 +41,20 @@ const PatientDashboard = () => {
     if (!confirm) return;
 
     await deleteMedicalRecord(id);
-    fetchRecords(); // ✅ Refresh records after deletion
+    fetchRecords(); 
   };
 
-  if (loading) return <p className="text-center mt-10 text-gray-600">Loading profile...</p>;
+  if (loading) return <p className="text-center mt-10 text-gray-600 relative top-28">Loading profile...</p>;
   if (errorMsg) return <p className="text-center mt-10 text-red-500">{errorMsg}</p>;
 
   return (
     <div className="min-h-screen px-6 py-10 md:px-16 bg-gradient-to-br relative top-20 from-indigo-200 via-white to-pink-100">
       <h1 className="text-3xl font-bold mb-8 text-center text-indigo-800">
-        👤 Welcome, {profile.name}
+         Welcome {profile.name}
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-        {/* Patient Profile Section */}
+        
         <div className="bg-white rounded-2xl shadow-lg p-6 col-span-1">
           <div className="flex flex-col items-center">
             <img
@@ -64,15 +64,15 @@ const PatientDashboard = () => {
             />
             <div className="text-center">
               <p className="text-lg font-semibold text-gray-700">{profile.name}</p>
-              <p className="text-sm text-gray-500">Age: {profile.age}</p>
-              <p className="text-sm text-gray-500">Gender: {profile.gender}</p>
+              <p className="text-sm text-gray-500">Age {profile.age}</p>
+              <p className="text-sm text-gray-500">Gender {profile.gender}</p>
             </div>
           </div>
         </div>
 
-        {/* Medical Records Section */}
+    
         <div className="md:col-span-2">
-          <h2 className="text-2xl font-semibold text-indigo-700 mb-4">🗂 Medical Records & Prescriptions</h2>
+          <h2 className="text-2xl font-semibold text-indigo-700 mb-4"> Medical Records & Prescriptions</h2>
 
           {recordLoading ? (
             <p className="text-gray-600">Loading medical records...</p>
@@ -84,8 +84,8 @@ const PatientDashboard = () => {
             <ul className="space-y-6">
               {medicalRecords.map((record, index) => (
                 <li key={index} className="bg-white rounded-xl p-5 shadow-md border border-gray-100">
-                  <p className="text-sm"><strong>Record ID:</strong> {record.id.toString()}</p>
-                  <p className="text-sm mt-1"><strong>Diagnosis:</strong> {record.diagnosis}</p>
+                  <p className="text-sm"><strong>Record ID</strong> {record.id.toString()}</p>
+                  <p className="text-sm mt-1"><strong>Diagnosis</strong> {record.diagnosis}</p>
                   <p className="text-sm mt-1">
                     <strong>View Image:</strong>{" "}
                     <a

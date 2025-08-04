@@ -147,7 +147,7 @@ console.log("Doctor:", isDoctorRole, "Patient:", isPatientRole);
   </button>
 </div>
 
-        {/* Sidebar (visible on small screens) */}
+  
 {sidebarOpen && (
   
   <div className="fixed inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500
@@ -178,6 +178,7 @@ console.log("Doctor:", isDoctorRole, "Patient:", isPatientRole);
         {isDoctor && <p  className="border-b pb-4" onClick={() => { setSidebarOpen(false); navigate('/doctor-dashboard') }}>Doctor Dashboard</p>}
         {isPatient && <p  className="border-b pb-4" onClick={() => { setSidebarOpen(false); navigate('/patient-view') }}>Patient Dashboard</p>}
         {isAdmin && <p   className="border-b pb-4"onClick={() => { setSidebarOpen(false); navigate('/allPatient') }}>All Patients</p>}
+        <appkit-button className="px-3 py-1 rounded-full bg-cyan-950 hover:bg-gray-900 transition" />
       </div>
     </div>
   </div>

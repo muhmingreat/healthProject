@@ -18,20 +18,18 @@ const Home = () => {
 
       {/* Main App Content */}
       <div className="relative z-10">
-        {/* <Header /> */}
-
         {/* Hero Section */}
-        <div className="min-h-screen flex flex-col items-center justify-center pt-28 px-4">
+        <div className="min-h-screen flex flex-col items-center justify-center pt-24 px-4 sm:px-6 md:px-10">
           <motion.div
-            className="flex flex-col md:flex-row items-center justify-between gap-10 p-8 bg-white/10 backdrop-blur-lg rounded-3xl shadow-xl max-w-7xl w-full"
+            className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 sm:gap-10 p-4 sm:p-8 bg-white/10 backdrop-blur-lg rounded-3xl shadow-xl max-w-7xl w-full"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5 }}
           >
             {/* Text Section */}
-            <div className="flex-1 text-center md:text-left space-y-4">
+            <div className="flex-1 text-center md:text-left space-y-3 sm:space-y-4">
               <motion.h1
-                className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-blue-950 bg-clip-text text-transparent"
+                className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-blue-950 bg-clip-text text-transparent"
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1 }}
@@ -40,7 +38,7 @@ const Home = () => {
               </motion.h1>
 
               <motion.h2
-                className="text-2xl font-semibold text-green-600"
+                className="text-lg sm:text-xl md:text-2xl font-semibold text-green-400"
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.7, duration: 1 }}
@@ -49,7 +47,7 @@ const Home = () => {
               </motion.h2>
 
               <motion.p
-                className="text-gray-200 text-md"
+                className="text-sm sm:text-base text-gray-200"
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.9, duration: 1 }}
@@ -58,7 +56,7 @@ const Home = () => {
                 we provide tamper-proof, secure, and accessible health data for both patients and doctors.
               </motion.p>
 
-              <div className="bg-white/10 p-4 rounded-xl mt-2 backdrop-blur-sm">
+              <div className="bg-white/10 p-3 sm:p-4 rounded-xl mt-2 backdrop-blur-sm text-sm sm:text-base">
                 <p>
                   Register as a <span className="font-bold text-blue-300">Doctor</span> or{' '}
                   <span className="font-bold text-green-300">Patient</span> to begin.
@@ -69,23 +67,25 @@ const Home = () => {
               </div>
 
               <motion.div
-                className="flex flex-wrap gap-4 mt-6 justify-center md:justify-start"
+                className="flex flex-wrap gap-3 sm:gap-4 mt-5 justify-center md:justify-start"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.2, duration: 1 }}
               >
-                <button className="bg-green-300 hover:bg-green-700 text-black font-bold py-3 px-6 rounded-full transition">
-                  <Link to='/patient'>Get Started</Link>
-                </button>
+                <Link to='/patient'>
+                  <button className="bg-green-300 hover:bg-green-700 text-black font-bold py-2 px-4 sm:py-3 sm:px-6 rounded-full transition">
+                    Get Started
+                  </button>
+                </Link>
 
                 <Link to="/medical">
-                  <button className="bg-green-700 hover:bg-green-900 text-white font-semibold py-3 px-6 rounded-full transition">
+                  <button className="bg-green-700 hover:bg-green-900 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full transition">
                     Get Diagnosis
                   </button>
                 </Link>
 
                 <Link to="/booking">
-                  <button className="bg-green-300 hover:bg-green-700 text-black font-semibold py-3 px-6 rounded-full transition">
+                  <button className="bg-green-300 hover:bg-green-700 text-black font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full transition">
                     Book Appointment
                   </button>
                 </Link>
@@ -94,7 +94,7 @@ const Home = () => {
 
             {/* Image Section */}
             <motion.div
-              className="flex-1"
+              className="flex-1 w-full"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.5, duration: 1 }}
@@ -102,7 +102,7 @@ const Home = () => {
               <img
                 src={image}
                 alt="Healthcare Illustration"
-                className="rounded-2xl shadow-lg w-full h-auto object-cover"
+                className="w-full h-auto max-h-[400px] sm:max-h-[500px] object-contain rounded-2xl shadow-lg"
               />
             </motion.div>
           </motion.div>
@@ -120,4 +120,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
 

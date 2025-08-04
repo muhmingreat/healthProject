@@ -61,32 +61,6 @@ const contract = useContractInstance();
     }
   }, [selectedFile]);
 
-  // const handleUploadToIPFS = async () => {
-  //   if (!selectedFile) return;
-  //   try {
-  //     const compressed = await imageCompression(selectedFile, {
-  //       maxSizeMB: 1,
-  //       maxWidthOrHeight: 1024,
-  //       useWebWorker: true,
-  //     });
-
-  //     const formData = new FormData();
-  //     formData.append('file', compressed);
-
-  //     const res = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //         pinata_api_key:        import.meta.env.VITE_PINATA_API_KEY,
-  //         pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
-  //       },
-  //     });
-
-  //     setIpfsUrl(`https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`);
-  //   } catch (err) {
-  //     console.error('IPFS upload error:', err);
-  //     toast.error("Failed to upload to IPFS");
-  //   }
-  // };
   const handleUploadToIPFS = async () => {
   if (!selectedFile) return;
 
