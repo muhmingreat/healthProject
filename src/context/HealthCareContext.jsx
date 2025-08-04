@@ -25,7 +25,7 @@ export const HealthCareProvider = ({ children }) => {
   const { address } = useAppKitAccount();
   const contract = useContractInstance(true);
 
-  // 🧑‍⚕️ Fetch all doctors
+  //  Fetch all doctors
   const fetchAllDoctors = useCallback(async () => {
     if (!contract) return;
     try {

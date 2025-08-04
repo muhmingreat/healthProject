@@ -2,37 +2,47 @@ import React, { useEffect, useState } from "react";
 import useMyPatientProfile from "../hooks/useMyPatientProfile";
 import useContractInstance from "../hooks/useContractInstance";
 import { useAppKitAccount } from "@reown/appkit/react";
+import useDeleteMedicalRecord from "../hooks/useDeleteMedicalRecord"; // ✅ Import it
 
 const PatientDashboard = () => {
   const { profile, loading, errorMsg } = useMyPatientProfile();
   const contract = useContractInstance(true);
   const { address } = useAppKitAccount();
+  const deleteMedicalRecord = useDeleteMedicalRecord(); // ✅ Use the hook
 
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [recordLoading, setRecordLoading] = useState(true);
   const [recordError, setRecordError] = useState("");
 
+  const fetchRecords = async () => {
+    if (!contract || !profile || !address) return;
+
+    setRecordLoading(true);
+    try {
+      const patientId = await contract.addressToPatientId(address);
+      const records = await contract.getPatientMedicalRecords(patientId);
+      setMedicalRecords(records);
+      setRecordError("");
+    } catch (err) {
+      console.error("❌ Error fetching medical records:", err);
+      setRecordError("Failed to fetch medical records.");
+      setMedicalRecords([]);
+    } finally {
+      setRecordLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchRecords = async () => {
-      if (!contract || !profile || !address) return;
-
-      setRecordLoading(true);
-      try {
-        const patientId = await contract.addressToPatientId(address);
-        const records = await contract.getPatientMedicalRecords(patientId);
-        setMedicalRecords(records);
-        setRecordError("");
-      } catch (err) {
-        console.error("❌ Error fetching medical records:", err);
-        setRecordError("Failed to fetch medical records.");
-        setMedicalRecords([]);
-      } finally {
-        setRecordLoading(false);
-      }
-    };
-
     fetchRecords();
   }, [contract, profile, address]);
+
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("Are you sure you want to delete this medical record?");
+    if (!confirm) return;
+
+    await deleteMedicalRecord(id);
+    fetchRecords(); // ✅ Refresh records after deletion
+  };
 
   if (loading) return <p className="text-center mt-10 text-gray-600">Loading profile...</p>;
   if (errorMsg) return <p className="text-center mt-10 text-red-500">{errorMsg}</p>;
@@ -62,7 +72,6 @@ const PatientDashboard = () => {
 
         {/* Medical Records Section */}
         <div className="md:col-span-2">
-          
           <h2 className="text-2xl font-semibold text-indigo-700 mb-4">🗂 Medical Records & Prescriptions</h2>
 
           {recordLoading ? (
@@ -94,6 +103,14 @@ const PatientDashboard = () => {
                       <span className="italic text-gray-400">Not yet prescribed</span>
                     )}
                   </p>
+
+                  
+                  <button
+                    onClick={() => handleDelete(record.id)}
+                    className="mt-3 flex flex-end text-sm text-red-600 hover:underline"
+                  >
+                    Delete Record
+                  </button>
                 </li>
               ))}
             </ul>
@@ -105,5 +122,3 @@ const PatientDashboard = () => {
 };
 
 export default PatientDashboard;
-
-

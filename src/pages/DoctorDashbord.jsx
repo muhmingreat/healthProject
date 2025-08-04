@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
-import { celoAlfajores } from "@reown/appkit/networks";
+import { crossFi } from "../config/crossFi"
 import { toast } from "react-toastify";
 import useContractInstance from "../hooks/useContractInstance";
 import MedicalRecordCard from "../component/MedicalRecordCard";
@@ -48,9 +48,9 @@ const DoctorDashboard = () => {
   }, [contract, address]);
 
   useEffect(() => {
-    if (address && Number(chainId) === Number(celoAlfajores.id)) {
+    if (address && Number(chainId) === Number(crossFi.id)) {
       fetchDoctorData();
-    } else if (chainId && Number(chainId) !== Number(celoAlfajores.id)) {
+    } else if (chainId && Number(chainId) !== Number(crossFi.id)) {
       toast.error("Please connect to Celo Alfajores network.");
     }
   }, [fetchDoctorData, address, chainId]);

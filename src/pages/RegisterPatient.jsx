@@ -6,7 +6,7 @@ import useRegisterPatient from '../hooks/useRegisterPatient';
 import { useNavigate } from 'react-router-dom';
 import { useAppKitAccount } from '@reown/appkit/react';
 import useContractInstance from '../hooks/useContractInstance';
-import axios from 'axios';
+import { uploadToIPFS } from '../utlis';
 
 const RegisterPatient = () => {
   const vantaRef = useRef(null);
@@ -65,23 +65,7 @@ const RegisterPatient = () => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [avatar]);
 
-  const uploadToIPFS = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const res = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
-          pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
-        },
-      });
-      return `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
-    } catch (err) {
-      console.error('IPFS upload error:', err);
-    }
-  };
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();

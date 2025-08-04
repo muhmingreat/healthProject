@@ -10,6 +10,8 @@ import { useHealthcare } from '../context/HealthCareContext';
 import { toast } from 'react-toastify';
 import useContractInstance from '../hooks/useContractInstance';
 import { useAppKitAccount } from '@reown/appkit/react';
+import { uploadToIPFS } from '../utlis';
+
 const MedicalRecord = () => {
   const vantaRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
@@ -59,32 +61,54 @@ const contract = useContractInstance();
     }
   }, [selectedFile]);
 
+  // const handleUploadToIPFS = async () => {
+  //   if (!selectedFile) return;
+  //   try {
+  //     const compressed = await imageCompression(selectedFile, {
+  //       maxSizeMB: 1,
+  //       maxWidthOrHeight: 1024,
+  //       useWebWorker: true,
+  //     });
+
+  //     const formData = new FormData();
+  //     formData.append('file', compressed);
+
+  //     const res = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //         pinata_api_key:        import.meta.env.VITE_PINATA_API_KEY,
+  //         pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
+  //       },
+  //     });
+
+  //     setIpfsUrl(`https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`);
+  //   } catch (err) {
+  //     console.error('IPFS upload error:', err);
+  //     toast.error("Failed to upload to IPFS");
+  //   }
+  // };
   const handleUploadToIPFS = async () => {
-    if (!selectedFile) return;
-    try {
-      const compressed = await imageCompression(selectedFile, {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1024,
-        useWebWorker: true,
-      });
+  if (!selectedFile) return;
 
-      const formData = new FormData();
-      formData.append('file', compressed);
+  try {
+    const compressed = await imageCompression(selectedFile, {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+    });
 
-      const res = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          pinata_api_key:        import.meta.env.VITE_PINATA_API_KEY,
-          pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
-        },
-      });
-
-      setIpfsUrl(`https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`);
-    } catch (err) {
-      console.error('IPFS upload error:', err);
-      toast.error("Failed to upload to IPFS");
+    const url = await uploadToIPFS(compressed);
+    if (url) {
+      setIpfsUrl(url);
+    } else {
+      toast.error('Failed to upload file to IPFS');
     }
-  };
+  } catch (err) {
+    console.error('IPFS upload error:', err);
+    toast.error('Failed to compress or upload file');
+  }
+};
+
 
   useEffect(() => {
     if (selectedFile) {
@@ -124,7 +148,8 @@ const contract = useContractInstance();
       >
         <h1 className="text-2xl font-bold text-center">Medical Record</h1>
 
-        <div className="flex justify-center">
+        
+<div className="flex justify-center my-4">
   <input
     type="file"
     accept="image/*,application/pdf"
@@ -132,10 +157,32 @@ const contract = useContractInstance();
     id="file-input"
     onChange={(e) => setSelectedFile(e.target.files[0])}
   />
-  <label htmlFor="file-input" className="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-    {selectedFile ? "File Selected" : "Upload Your PDF or Image"}
+  <label
+    htmlFor="file-input"
+    className="rounded-full w-32 h-32 bg-gray-100 flex items-center 
+    justify-center cursor-pointer relative overflow-hidden"
+  >
+    {selectedFile ? (
+      selectedFile.type.startsWith('image/') ? (
+        <img
+          src={previewUrl}
+          alt="Selected File"
+          className="w-full h-full object-cover rounded-full"
+        />
+      ) : (
+        <span className="text-xs text-center text-gray-600 px-2">
+          PDF Selected
+        </span>
+      )
+    ) : (
+      <span className="relative flex w-16 h-16">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gradient-to-tr from-blue-400 via-purple-400 to-pink-400 opacity-75"></span>
+        <Camera className="w-16 h-16 relative inline-flex rounded-full text-blue-600" />
+      </span>
+    )}
   </label>
 </div>
+
  <div>
           <label className="block text-sm font-medium text-gray-700">Patient Name</label>
           <input
@@ -160,27 +207,17 @@ const contract = useContractInstance();
           />
         </div>
 
-        {ipfsUrl && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700">IPFS URL</label>
-            <input
-              type="text"
-              value={ipfsUrl}
-              readOnly
-              className="mt-1 w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-        )}
+       
 
         <button
           type="submit"
-          disabled={!ipfsUrl || loading}
-          className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition"
+          disabled={ loading}
+          className="w-full bg-green-600 text-white p-2 rounded-md mt-4 hover:bg-green-800 transition"
         >
           {loading ? (
-            <span className="flex justify-center items-center gap-2">
+            <span className="flex justify-center items-center gap-2 bg-green-300">
               <Loader2 className="animate-spin h-4 w-4" />
-              Submitting...
+              Adding...
             </span>
           ) : (
             'Add Record'

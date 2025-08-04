@@ -1,88 +1,123 @@
-import { createAppKit } from '@reown/appkit/react';
-import { EthersAdapter } from '@reown/appkit-adapter-ethers';
+import { createAppKit } from "@reown/appkit/react";
 
+import { EthersAdapter } from "@reown/appkit-adapter-ethers";
 
-const projectId = import.meta.env.VITE_APPKIT_PROJECT_ID;
+import { defineChain } from "@reown/appkit/networks";
 
+// 1. Get projectId
 
-const alfajores = {
-  id: 44787,
-  name: 'Celo Alfajores',
-  network: 'celo-alfajores',
+const projectId = process.env.VITE_APPKIT_PROJECT_ID;
+
+// Define CrossFi Testnet
+
+const crossFiTestnet = defineChain({
+
+  id: 4157,
+
+  caipNetworkId: "eip155:4157",
+
+  chainNamespace: "eip155",
+
+  name: "CrossFi Testnet",
+
   nativeCurrency: {
-    name: 'CELO',
-    symbol: 'CELO',
+
     decimals: 18,
+
+    name: "XFI",
+
+    symbol: "XFI",
+
   },
+
   rpcUrls: {
+
     default: {
-      http: ['https://alfajores-forno.celo-testnet.org'],
+
+      http: ["https://rpc.testnet.ms"],
+
     },
+
   },
+
   blockExplorers: {
-    default: {
-      name: 'CeloScan',
-      url: 'https://alfajores.celoscan.io',
-    },
-  },
-  testnet: true,
-};
 
-const celo = {
-  id: 42220,
-  name: 'Celo Mainnet',
-  network: 'celo-mainnet',
-  nativeCurrency: {
-    name: 'CELO',
-    symbol: 'CELO',
-    decimals: 18,
-  },
-  rpcUrls: {
     default: {
-      http: ['https://forno.celo.org'],
+
+      name: "XFI Scan",
+
+      url: "https://test.xfiscan.com",
+
     },
+
   },
-  blockExplorers: {
-    default: {
-      name: 'CeloScan',
-      url: 'https://celoscan.io',
-    },
-  },
-  testnet: false,
-};
+
+});
 
 
-const networks = [alfajores, celo];
+// Set the networks
+
+const networks = [crossFiTestnet];
+
+
+// Metadata for the dApp
 
 const metadata = {
-  name: 'My Healthcare DApp',
-  description: 'Healthcare Record System on CELO',
-  url: 'http://localhost:5173', 
-  icons: ['https://myhealthcareapp.com/icon.png'] ,
 
+  name: "Buy Me a Coffee",
+
+  description: "Support creators by buying them coffee with XFI",
+
+  url: "https://mywebsite.com",
+
+  icons: ["https://avatars.mywebsite.com/"],
 
 };
 
 
+// Initialize AppKit
+
 createAppKit({
+
   adapters: [new EthersAdapter()],
+
   networks,
+
+  chainImages: {
+
+    [crossFiTestnet.id]:
+
+      "https://s2.coinmarketcap.com/static/img/coins/64x64/26202.png",
+
+  },
+
   metadata,
+
   projectId,
-  features: {
-    analytics: true 
-  },
-  themeVariables: {
-    "--w3m-accent": "black",
-    "--w3m-border-radius-master": "1px",
-  },
+
+  allWallets: "SHOW",
+
+  defaultNetwork: crossFiTestnet,
+
+  enableEIP6963: true,
+
   themeMode: "dark",
+
   themeVariables: {
 
-        "--w3m-accent": "black",
-    
-        "--w3m-border-radius-master": "1px",
-    
-      },
+    "--w3m-accent": "#000000",
+
+    "--w3m-border-radius-master": "10px",
+
+  },
+
+  features: {
+
+    analytics: true,
+
+    legalCheckbox: true,
+
+  },
+
 });
 

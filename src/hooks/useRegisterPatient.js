@@ -1,13 +1,8 @@
-
-
-
-
 import { useCallback } from "react";
 import useContractInstance from "./useContractInstance";
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
 import { toast } from "react-toastify";
-// import { baseSepolia } from "@reown/appkit/networks";
-import { celoAlfajores } from "@reown/appkit/networks";
+import { crossFi } from "../config/crossFi"
 import { ErrorDecoder } from "ethers-decode-error";
 
 const useCreatePatient = () => {
@@ -32,7 +27,7 @@ const useCreatePatient = () => {
         return;
       }
 
-      if (Number(chainId) !== Number(celoAlfajores.id)) {
+      if (Number(chainId) !== Number(crossFi.id)) {
         toast.error("You're not connected to celoAfajores");
         return;
       }

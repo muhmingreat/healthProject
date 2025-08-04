@@ -2,8 +2,7 @@ import { useCallback } from "react";
 import { toast } from "react-toastify";
 import { ethers,Interface } from "ethers";
 import { ErrorDecoder } from "ethers-decode-error";
-import { celoAlfajores } from "@reown/appkit/networks";
-import ABI from "../ABI/Healthcare.json";
+import { crossFi } from "../config/crossFi"
 import useContractInstance from "./useContractInstance";
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
 
@@ -29,7 +28,7 @@ return useCallback(async (doctorAddress, timestamp, fee) => {
       return;
     }
 
-    if (Number(chainId) !== Number(celoAlfajores.id)) {
+    if (Number(chainId) !== Number(crossFi.id)) {
       toast.error("You're not connected to celoAlfajores network");
       return;
     }
