@@ -69,7 +69,7 @@ const RegisterPatient = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !age || !gender || !avatar) return;
+    if (!name || !age || !gender || !avatar) return;x
 
     setLoading(true);
     try {

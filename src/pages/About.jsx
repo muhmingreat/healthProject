@@ -54,10 +54,10 @@ export default function CycleContent() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
               {contentList[index].title}
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-white/90">
+            <p className="text-sm sm:text-base md:text-lg xs:text-xs text-white/90">
               {contentList[index].description}
             </p>
-            <button className="mt-4 px-4 sm:px-6 py-2 bg-white text-indigo-700 font-semibold rounded-full shadow-md hover:scale-105 transition-transform duration-300 text-sm sm:text-base">
+            <button className="mt-4 px-4 sm:px-6 py-2 xs:px-3 xs:py-0 bg-white text-indigo-700 font-semibold rounded-full shadow-md hover:scale-105 transition-transform duration-300 text-sm sm:text-base">
               {contentList[index].button}
             </button>
           </motion.div>

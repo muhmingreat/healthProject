@@ -135,7 +135,7 @@ console.log("Doctor:", isDoctorRole, "Patient:", isPatientRole);
           </div>
   
       
-          <appkit-button className="px-3 py-1 rounded-full bg-cyan-950 hover:bg-gray-900 transition" />
+          <appkit-button className="  rounded-full bg-black-950 hover:bg-gray-900 transition" />
           {/* Hamburger menu for small screens */}
   </nav>
 <div className="lg:hidden ">
