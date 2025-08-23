@@ -4,7 +4,7 @@ import { useAppKitAccount } from '@reown/appkit/react';
 import useContractInstance from '../hooks/useContractInstance';
 import { useHealthcare } from '../context/HealthCareContext';
 // import Alert from './Alert';
-import { Bell } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const { address } = useAppKitAccount();
@@ -143,20 +143,20 @@ console.log("Doctor:", isDoctorRole, "Patient:", isPatientRole);
     onClick={() => setSidebarOpen(true)}
     className="text-white p-2 bg-white/10 rounded-md"
   >
-    ☰
+  <Menu size={24} />
   </button>
 </div>
 
   
 {sidebarOpen && (
   
-  <div className="fixed inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500
+  <div className="fixed inset-0 bg-blue-500
    z-50 animate-slide-in flex flex-col p-6 space-y-4">
     <button
       onClick={() => setSidebarOpen(false)}
       className="self-end text-xl font-bold"
     >
-      ✕
+      <X size={24} />
     </button>
 
     <Link to="/" onClick={() => setSidebarOpen(false)} className="hover:text-yellow-300">Home</Link>
