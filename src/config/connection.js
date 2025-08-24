@@ -6,7 +6,7 @@ import { defineChain } from "@reown/appkit/networks";
 
 // 1. Get projectId
 
-const projectId = process.env.VITE_APPKIT_PROJECT_ID;
+const projectId = import.metagit .env.VITE_APPKIT_PROJECT_ID;
 
 // Define CrossFi Testnet
 
