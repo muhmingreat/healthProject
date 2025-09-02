@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import MedicalRecord from './pages/MedicalRecord'
-
+import About from './pages/About'
 import CustomerRelate from './pages/CustomerRelate'
 import BookAppointment from './pages/BookAppointment'
 import GetAllDoctors from './pages/GetAllDoctors'
@@ -35,6 +35,8 @@ const App = () => {
          <Route path='/booking' element={ <BookAppointment/>} />
          <Route path='/doctor-list' element={ <GetAllDoctors />} />
          <Route path='/allPatient' element={ <AllPatients />} />
+         <Route path='/about' element={ <About />} />
+
 
          <Route path='/doctor-dashboard' element={ <DoctorDashboard/>} />
 

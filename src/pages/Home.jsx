@@ -109,12 +109,11 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-          {/* Additional Sections */}
-          {/* <div className="w-full mt-16"> */}
+        
             <GetDoctor />
             <About />
             <Footer />
-          {/* </div> */}
+    
         </div>
       </div>
     </div>
