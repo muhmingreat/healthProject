@@ -6,7 +6,7 @@ const GetDoctor = () => {
   const { allDoctors } = useHealthcare();
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 sm:px-6 md:px-10 py-12 relative top-20">
+    <div className="min-h-screen bg-black text-white px-4 sm:px-6 md:px-10 py-12 relative top-15">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

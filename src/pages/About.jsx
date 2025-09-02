@@ -40,8 +40,9 @@ export default function CycleContent() {
   }, []);
 
   return (
-    <div className="w-full h-screen mt-20 flex items-center justify-center bg-black px-4 sm:px-6 md:px-10 py-6">
+    <div className="w-full h-screen mt-10 flex items-center justify-center bg-black px-4 sm:px-6 md:px-10 py-6">
       <div className="text-center max-w-sm sm:max-w-md md:max-w-xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl mb-20 font-extrabold bg-gradient-to-r from-blue-400 to-blue-950 bg-clip-text text-transparent mb-6">About Us</h2>
         <AnimatePresence mode="wait">
           <motion.div
             key={index}

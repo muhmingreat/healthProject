@@ -10,7 +10,6 @@ import Home from './pages/Home'
 import MedicalRecord from './pages/MedicalRecord'
 
 import CustomerRelate from './pages/CustomerRelate'
-import Chat from './component/Chat'
 import BookAppointment from './pages/BookAppointment'
 import GetAllDoctors from './pages/GetAllDoctors'
 import AllPatients from './pages/AllPatientRecord'
@@ -36,12 +35,9 @@ const App = () => {
          <Route path='/booking' element={ <BookAppointment/>} />
          <Route path='/doctor-list' element={ <GetAllDoctors />} />
          <Route path='/allPatient' element={ <AllPatients />} />
-        
-         <Route path='/chat' element={ <Chat/>} /> 
-      
-         <Route path='/doctor-dashboard' element={ <DoctorDashboard/>} /> 
 
-        
+         <Route path='/doctor-dashboard' element={ <DoctorDashboard/>} />
+
          <Route path='/patient-view' element={ <PatientDashboard/>} />
 
 
